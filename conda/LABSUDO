@@ -1,0 +1,2 @@
+labuser ALL=(root) NOPASSWD: /bin/mount -t cifs -o cruid\=labuser\,gid\=2100\,uid\=2100\,*
+labuser ALL=(root) NOPASSWD: /bin/umount /home/labuser/workspace/windows_drive*

@@ -1,0 +1,82 @@
+version: '3'
+services:
+  #scope:
+    #image: weaveworks/scope:1.13.1
+    #network_mode: "host"
+    #networks:
+    # - jupyterhub-net
+    #ports:
+    # - 8082:4040
+    #pid: "host"
+    #privileged: true
+    #labels:
+    #  - "works.weave.role=system"
+    #volumes:
+    #  - "/var/run/docker.sock:/var/run/docker.sock:rw"
+    #command:
+    #  - "--probe.docker=true"
+
+  conda:
+    build:
+      context: "."
+      dockerfile: "conda/Dockerfile"
+    image: lab_setup_conda_image
+    networks:
+     - jupyterhub-net
+    #hostname: conda
+    volumes:
+     - /home/labuser/lab_data/shared_notebooks:/home/labuser/shared_notebooks:ro
+     - /home/labuser/lab_setup/conda/jdk:/usr/jdk64/jdk:ro
+     - /home/labuser/lab_setup/jupyterhub/user_info/labuser:/home/labuser/user_info/labuser:ro
+     - /home/labuser/lab_setup/conda/labutils.py:/home/labuser/single_server/conda/lib/python3.7/site-packages/labutils.py:ro
+     - /home/labuser/lab_setup/conda/.custom_bashrc:/home/labuser/.custom_bashrc:ro
+    tty: true
+    stdin_open: true
+    ports:
+      - "12000-12010:12000-12010"
+  
+  proxy:
+    env_file: .env
+    image: jupyterhub/configurable-http-proxy:4.0.1
+    networks:
+      - jupyterhub-net
+    hostname: proxy
+    # expose the proxy to the world
+    ports:
+      - "11110:8000"
+    command:
+      - configurable-http-proxy
+      - '--error-target'
+      - 'http://hub/hub/error'
+      - '--log-level debug'
+      - '--ssl-key'
+      - '/certs/server.key'
+      - '--ssl-cert'
+      - '/certs/server.crt'
+    volumes:
+      - "/home/labuser/lab_setup/proxy/server.crt:/certs/server.crt"
+      - "/home/labuser/lab_setup/proxy/server.key:/certs/server.key"
+
+
+  hub:
+    # build an image with SwarmSpawner and our jupyterhub_config.py
+    env_file: .env
+    build:
+      context: "."
+      dockerfile: "jupyterhub/Dockerfile"
+    # mount the docker socket
+    hostname: hub
+    ports:
+      - "8000:8000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/home/labuser/lab_data/shared_notebooks:/hub_home/jupyterhub/shared_notebooks"
+      - "/home/labuser/lab_data/personal_notebooks:/hub_home/jupyterhub/personal_notebooks"
+      - "./jupyterhub/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py"
+      - "./jupyterhub/user_info:/srv/jupyterhub/user_info"
+    networks:
+      - jupyterhub-net
+
+networks:
+  jupyterhub-net:
+    driver: bridge
