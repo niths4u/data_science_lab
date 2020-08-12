@@ -1,4 +1,6 @@
 # data_science_lab
+Complete setup on how to use this is under : https://medium.com/@nitinmn/data-science-lab-setup-9aadd585f986
+
 This is a docker-compose file that will create a jupyterhub on port https://<hostname>:11110/.
 This repo with few customisation is used with hadoop services integrated with kerberos , LDAP AD authentication , Hadoop and spark connectivity using thrift servers , RDBMS like MSSQL, PostgreSQL , MYSQL. I have added only the skeleton for bare minimum feature for data science activity. But within the data science , the dockerfile consists of almost all necessary data science tools.
   
