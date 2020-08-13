@@ -104,7 +104,7 @@ Setup docker related files and folders. This is where we need to pull in the git
 - `mkdir -p /home/labuser/lab_data/docker_related`
 - `chown -R labuser:labuser   /home/labuser/lab_data/docker_related`
 - `cd /home/labuser/lab_data/docker_related`
-- pull this repo **`https://github.com/niths4u/data_science_lab.git`** and save it as lab_setup under the folder `/home/labuser/lab_data/docker_related`
+- pull this repo **`https://github.com/niths4u/data_science_lab.git`** and save it with folder name `lab_setup` under the folder `/home/labuser/lab_data/docker_related`
 - `ln -s /home/labuser/lab_data/docker_related/lab_setup /home/labuser/`
 - `cd /home/labuser/lab_data/docker_related/lab_setup/conda`
 - Download the anaconda repository file and store it in current location using `wget -O Anaconda3.sh https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh`
