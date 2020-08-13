@@ -164,4 +164,4 @@ If you want to join more than one machine , There are two ways to handle it
 
 I have used swarm clusters to scale up our lab as well setup separate machine by sharing the lab files across using NFS mount.Both are fairly straightforward and easy to setup. I would prefer the latter method as it is easier and have more control because unlike large distributed systems requiring frequent addition and deletion , lab clusters are once in a while setup. So we need not add additional overhead to it using swarm or kubernetes cluster setup.
 
-Feel free to contact if any help is required. The same content is available at [Medium_publish](https://medium.com/@nitinmn/data-science-lab-setup-9aadd585f986)
+Feel free to contact if any help is required.
