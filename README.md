@@ -54,7 +54,7 @@ The idea of this article is to give a small lab environment where data scientist
 ## Setting up system level users and groups
 1. Create a user and group called `labuser` and assign a specific `uid` and `guid` , say 2100. The number 2100 is important because going further docker containers will also be using same uid and guid to ensure the files persisted are accessible from host and vice versa
 2. `groupadd -g 2100 labuser`
-3. `useradd -u 2100 -d /home/labuser -ms /bin/bash -g labuser -p “$(openssl passwd -1 labuser123)” labuser`
+3. `useradd -u 2100 -d /home/labuser -ms /bin/bash -g labuser -p “$(openssl passwd -1 labuser123)” labuser` Feel free to change the password from *labuser123* to any password.
 
 ## Folder setup
    
@@ -109,6 +109,7 @@ Setup docker related files and folders. This is where we need to pull in the git
 - `cd /home/labuser/lab_data/docker_related/lab_setup/conda`
 - Download the anaconda repository file and store it in current location using `wget -O Anaconda3.sh https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh`
 - Download `jdk1.8` and save it as `jdk` in the current location, this will be the *java_home* directory inside docker. Note that I have tested this with `jdk1.8.0_112`.It is not mandatory , but required for tools in data science that needs `jdk`. Please follow relevant articles as to how to download `jdk`
+- Note that in the dockerfile under `/home/labuser/lab_setup/conda/Dockerfile` , there is a section where the password of root is setup `echo 'root:labuser123carry' |chpasswd`. Please feel free to change *labuser123carry* to any password based on your organisational policy.
 
 
 ## Setup certificate for jupyterhub
