@@ -147,7 +147,7 @@ Starting the lab involves docker-compose utility. Please go through basic docker
 ## Customization
 
 - **Port change** : Go to *docker-compose.yaml* file and change the port under service proxy and put the one you would like to see. For example to change port from 11110 to 8888 , then change `11110:8080` to `8888:8000`
-- **Authentication change**: Go to `/home/labuser/lab_setup/jupyterhub/jupyterhub_config.py` and put the right authentication module. As of now it is already supports *ldap authentication. It only requires configuration settings. For example, to change to ldap authentication , comment out the line of dummy authenticator and use the ldapauthentication* . Make sure to add all proper variables while enabling ldapauthenticator. I have specified few that are tested and working in my case.
+- **Authentication change**: Go to `/home/labuser/lab_setup/jupyterhub/jupyterhub_config.py` and put the right authentication module. As of now it is already supports *ldap authentication*. It only requires configuration settings. For example, to change to ldap authentication , comment out the line of dummy authenticator and use the *ldapauthentication* . Make sure to add all proper variables while enabling ldapauthenticator. I have specified few that are tested and working in my case.
 `#c.JupyterHub.authenticator_class = 'dummyauthenticator.DummyAuthenticator'`
 `c.JupyterHub.authenticator_class = 'ldapauthenticator.LDAPAuthenticator' ###enable this if you want ldap auth`
 
