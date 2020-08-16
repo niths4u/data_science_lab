@@ -47,10 +47,13 @@ class windows_connect:
             print(mn.stderr)
             return(False)
 
-    def map_drive(self,drive_location):
-        for loc in drive_location.split(','):
+    def map_drive(self,*args):
+        if len(args) == 0:
+            print("no drive location specified")
+            return(False)
+        for loc in args:
             loc1=loc.rstrip('/')
-            dir_struct=loc.split('/')
+            dir_struct=loc1.split('/')
             source_dir='"'+loc1+'"'
             target_dir='"/home/labuser/workspace/windows_drive/'+dir_struct[2]+"_"+dir_struct[-1]+'"'
             self.unmount_drive(target_dir)
